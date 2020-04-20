@@ -2,13 +2,20 @@ package app
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/novdov/goms/mvc/controllers"
+	"github.com/gin-gonic/gin"
 )
 
-func StartApp() {
-	http.HandleFunc("/users", controllers.GetUser)
+var (
+	router *gin.Engine
+)
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+func init() {
+	router = gin.Default()
+}
+
+func StartApp() {
+	MapUrls()
+
+	log.Fatal(router.Run(":8080"))
 }
